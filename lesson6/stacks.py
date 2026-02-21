@@ -22,6 +22,12 @@ class Stack():
     
     def display(self):
         return self.list
+    
+    def hasitem(self):
+        if len(self.list) > 0:
+            return True
+        else:
+            return False
 
 
 mystack = Stack(5)
