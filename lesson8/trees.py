@@ -56,18 +56,50 @@ class Tree():
             return 0
         else:
             return max(self.data, left, right)
+        
+    def search(self, number):
+        if self.data == number:
+            return True
+        elif self.data > number and self.leftchild != None:
+            return self.leftchild.search(number)
+        elif self.data < number and self.rightchild != None:
+            return self.rightchild.search(number)
+        else:
+            return False
+        
+    def insert(self, number):
+        if self.data == number:
+            print("Cannot add to tree, number already in tree.")
+        elif number > self.data:
+            if self.rightchild != None:
+                self.rightchild.insert(number)
+            else:
+                self.rightchild = Tree(number)
+        elif number < self.data:
+            if self.leftchild != None:
+                self.leftchild.insert(number)
+            else:
+                self.leftchild = Tree(number)
+
 
 
 mytree = Tree(5)
-mytree.leftchild = Tree(11)
-mytree.rightchild = Tree(16)
-mytree.leftchild.leftchild = Tree(9)
-mytree.leftchild.rightchild = Tree(6)
-mytree.rightchild.leftchild = Tree(2)
-mytree.rightchild.rightchild = Tree(4)
+mytree.leftchild = Tree(2)
+mytree.rightchild = Tree(11)
+mytree.leftchild.leftchild = Tree(1)
+mytree.leftchild.rightchild = Tree(4)
+mytree.rightchild.leftchild = Tree(9)
+mytree.rightchild.rightchild = Tree(16)
 
 mytree.preorder()
 print("----Post Order----")
 mytree.postorder()
 print(f"Count: {mytree.count()}")
 print(f"Max: {mytree.getmax()}")
+
+numtofind = int(input("What number do you want to search for?: "))
+print(f"found: {mytree.search(numtofind)}")
+
+numtoadd = int(input("What number do you want to add?: "))
+mytree.insert(numtoadd)
+mytree.preorder()
