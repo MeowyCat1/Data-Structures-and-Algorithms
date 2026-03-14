@@ -81,6 +81,42 @@ class Tree():
             else:
                 self.leftchild = Tree(number)
 
+    def removeitemandchildren(self, number):
+        if self.search(number) == False:
+            print("Could not remove, nothing to remove.")
+        if self.data == number:
+            print("Cannot delete root node.")
+        if number > self.data and self.rightchild != None:
+            if self.rightchild.data == number:
+                self.rightchild = None
+            else:
+                self.rightchild.removeitemandchildren(number)
+        if number < self.data and self.leftchild != None:
+            if self.leftchild.data == number:
+                self.leftchild == None
+            else:
+                self.leftchild.removeitemandchildren(number)
+
+    def delete(self, number):
+        if self == None:
+            return self
+        if number < self.data:
+           self.leftchild = self.leftchild.delete(number)
+        elif number > self.data:
+            self.rightchild = self.rightchild.delete(number)
+        else:
+            # Root has only one child
+            if self.leftchild == None:
+                temp = self.rightchild
+                self = None
+                return temp
+            elif self.rightchild == None:
+                temp = self.leftchild
+                self = None
+                return temp
+            else:
+                if
+        return self
 
 
 mytree = Tree(5)
@@ -102,4 +138,8 @@ print(f"found: {mytree.search(numtofind)}")
 
 numtoadd = int(input("What number do you want to add?: "))
 mytree.insert(numtoadd)
+mytree.preorder()
+
+mytree.delete(int(input("What to remove?")))
+
 mytree.preorder()
