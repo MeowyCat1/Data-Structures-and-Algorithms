@@ -97,6 +97,12 @@ class Tree():
             else:
                 self.leftchild.removeitemandchildren(number)
 
+    def inordersuccessor(self):
+        current = self
+        while current.leftchild != None:
+            current = current.leftchild
+        return current
+
     def delete(self, number):
         if self == None:
             return self
@@ -115,7 +121,11 @@ class Tree():
                 self = None
                 return temp
             else:
-                if
+                temp = self.rightchild.inordersuccessor()
+                t = self.data
+                self.data = temp.data
+                temp.data = t
+                self.rightchild = self.rightchild.delete(temp.data)
         return self
 
 
