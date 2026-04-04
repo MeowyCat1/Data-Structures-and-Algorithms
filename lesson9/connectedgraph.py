@@ -1,4 +1,4 @@
-class Graph:
+class ConnectedGraph:
     def __init__(self, num_nodes):
         self.num_nodes = num_nodes
         self.list = []
@@ -35,9 +35,29 @@ class Graph:
         self.dfsutil(startnum, self.visited, result)
         return result
     
-    def dfsutil(self, startnum, visited, result):
-        result.append(startnum)
-        visited[startnum] = True
-        for node in self.list[startnum]:
+    def dfsutil(self, temp, node, visited):
+        visited[node] = True
+        temp.append(node)
+        for i in self.list[node]:
+            if not self.visited[i]:
+                temp = self.dfsutil(temp, i, visited)
+
+        return temp
+
+    def connected_components(self):
+        self.visited = [False] * self.num_nodes
+        cc = []
+        for node in range(len(self.list)):
             if not self.visited[node]:
-                self.dfsutil(node, self.visited, result)
+                temp = []
+                t = self.dfsutil(temp, node, self.visited)
+                cc.append(t)
+
+        return cc
+    
+myconnectedgraph = ConnectedGraph(5)
+myconnectedgraph.add_edge(0, 1)
+myconnectedgraph.add_edge(0, 2)
+myconnectedgraph.add_edge(3, 4)
+
+print(myconnectedgraph.connected_components())
